@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎄 Lista de Presentes de Natal 🎄</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(
+          135deg,
+          #1a472a 0%,
+          #2d5a3d 50%,
+          #c41e3a 100%
+        );
+        min-height: 100vh;
+        padding: 20px;
+        color: #333;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        color: #ffd700;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0.8;
+        }
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      .stat-box {
+        background: rgba(255, 215, 0, 0.1);
+        border: 2px solid #ffd700;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        color: #ffd700;
+      }
+
+      .stat-number {
+        font-size: 2em;
+        font-weight: bold;
+      }
+
+      .stat-label {
+        font-size: 0.9em;
+        margin-top: 5px;
+      }
+
+      .form-section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .form-section h2 {
+        color: #c41e3a;
+        margin-bottom: 20px;
+        font-size: 1.5em;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: bold;
+      }
+
+      input[type='text'],
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 2px solid #e0e0e0;
+        border-radius: 5px;
+        font-size: 1em;
+        transition: border-color 0.3s;
+      }
+
+      input[type='text']:focus,
+      select:focus {
+        outline: none;
+        border-color: #c41e3a;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      button {
+        background: linear-gradient(135deg, #c41e3a, #a01730);
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(196, 30, 58, 0.3);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      .presents-section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .presents-section h2 {
+        color: #c41e3a;
+        margin-bottom: 20px;
+        font-size: 1.5em;
+      }
+
+      .present-item {
+        background: linear-gradient(135deg, #f5f5f5, #ffffff);
+        border-left: 5px solid #ffd700;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s;
+      }
+
+      .present-item:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transform: translateX(5px);
+      }
+
+      .present-item.concluido {
+        opacity: 0.7;
+        background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+        border-left-color: #4caf50;
+      }
+
+      .present-info {
+        flex: 1;
+      }
+
+      .present-nome {
+        font-weight: bold;
+        color: #333;
+        font-size: 1.1em;
+      }
+
+      .present-item.concluido .present-nome {
+        text-decoration: line-through;
+        color: #999;
+      }
+
+      .present-details {
+        font-size: 0.9em;
+        color: #666;
+        margin-top: 5px;
+      }
+
+      .present-prioridade {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 3px;
+        font-size: 0.8em;
+        margin-left: 10px;
+        font-weight: bold;
+      }
+
+      .prioridade-alta {
+        background: #ffcdd2;
+        color: #c62828;
+      }
+
+      .prioridade-média {
+        background: #fff9c4;
+        color: #f57f17;
+      }
+
+      .prioridade-baixa {
+        background: #c8e6c9;
+        color: #2e7d32;
+      }
+
+      .present-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn-small {
+        padding: 8px 15px;
+        font-size: 0.9em;
+        background: #2196f3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-small:hover {
+        background: #1976d2;
+      }
+
+      .btn-delete {
+        background: #f44336;
+      }
+
+      .btn-delete:hover {
+        background: #d32f2f;
+      }
+
+      .btn-complete {
+        background: #4caf50;
+      }
+
+      .btn-complete:hover {
+        background: #388e3c;
+      }
+
+      .empty-state {
+        text-align: center;
+        color: #999;
+        padding: 40px 20px;
+        font-size: 1.1em;
+      }
+
+      .snowflake {
+        position: fixed;
+        top: -10px;
+        color: #fff;
+        font-size: 1.5em;
+        animation: snowfall 10s linear infinite;
+        opacity: 0.8;
+      }
+
+      @keyframes snowfall {
+        to {
+          transform: translateY(100vh);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: 1.8em;
+        }
+
+        .present-item {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .present-actions {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🎄 Lista de Presentes de Natal 🎁</h1>
+        <p>Organize seus presentes para as festas!</p>
+      </header>
+
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-number" id="total">0</div>
+          <div class="stat-label">Total de Presentes</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" id="concluidos">0</div>
+          <div class="stat-label">Concluídos ✓</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" id="pendentes">0</div>
+          <div class="stat-label">Pendentes</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>✨ Adicionar Novo Presente</h2>
+        <form id="presentForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome">Nome do Presente:</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                required
+                placeholder="Ex: PlayStation 5"
+              />
+            </div>
+            <div class="form-group">
+              <label for="destinatario">Destinatário:</label>
+              <input
+                type="text"
+                id="destinatario"
+                name="destinatario"
+                required
+                placeholder="Ex: João"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="prioridade">Prioridade:</label>
+            <select id="prioridade" name="prioridade">
+              <option value="baixa">Baixa</option>
+              <option value="média" selected>Média</option>
+              <option value="alta">Alta</option>
+            </select>
+          </div>
+          <button type="submit">🎅 Adicionar Presente</button>
+        </form>
+      </div>
+
+      <div class="presents-section">
+        <h2>📝 Seus Presentes</h2>
+        <div id="presentsList"></div>
+      </div>
+    </div>
+
+    <script>
+      const API_BASE = '/api'
+
+      // Gerar flocos de neve
+      function createSnowflakes() {
+        const snowflakeCount = 10
+        for (let i = 0; i < snowflakeCount; i++) {
+          const snowflake = document.createElement('div')
+          snowflake.className = 'snowflake'
+          snowflake.innerHTML = '❄'
+          snowflake.style.left = Math.random() * 100 + '%'
+          snowflake.style.animationDuration = 5 + Math.random() * 10 + 's'
+          snowflake.style.animationDelay = Math.random() * 2 + 's'
+          document.body.appendChild(snowflake)
+        }
+      }
+
+      createSnowflakes()
+
+      // Carregar presentes
+      async function loadPresentes() {
+        try {
+          const response = await fetch(`${API_BASE}/presentes`)
+          const presentes = await response.json()
+          renderPresentes(presentes)
+          updateStatistics()
+        } catch (error) {
+          console.error('Erro ao carregar presentes:', error)
+        }
+      }
+
+      // Renderizar presentes
+      function renderPresentes(presentes) {
+        const list = document.getElementById('presentsList')
+
+        if (presentes.length === 0) {
+          list.innerHTML =
+            '<div class="empty-state">🎅 Nenhum presente adicionado ainda. Comece a planejar seu Natal!</div>'
+          return
+        }
+
+        list.innerHTML = presentes
+          .map(
+            (p) => `
+                <div class="present-item ${p.concluido ? 'concluido' : ''}">
+                    <div class="present-info">
+                        <div class="present-nome">${p.nome}</div>
+                        <div class="present-details">
+                            👤 ${p.destinatario}
+                            <span class="present-prioridade prioridade-${
+                              p.prioridade
+                            }">
+                                ${p.prioridade.toUpperCase()}
+                            </span>
+                            <br>
+                            📅 ${p.data_criacao}
+                        </div>
+                    </div>
+                    <div class="present-actions">
+                        <button class="btn-small btn-complete" onclick="togglePresente(${
+                          p.id
+                        })">
+                            ${p.concluido ? '↩️ Desfazer' : '✓ Concluir'}
+                        </button>
+                        <button class="btn-small btn-delete" onclick="deletePresente(${
+                          p.id
+                        })">
+                            🗑️ Deletar
+                        </button>
+                    </div>
+                </div>
+            `
+          )
+          .join('')
+      }
+
+      // Adicionar presente
+      document
+        .getElementById('presentForm')
+        .addEventListener('submit', async (e) => {
+          e.preventDefault()
+
+          const formData = {
+            nome: document.getElementById('nome').value,
+            destinatario: document.getElementById('destinatario').value,
+            prioridade: document.getElementById('prioridade').value,
+          }
+
+          try {
+            const response = await fetch(`${API_BASE}/presentes`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(formData),
+            })
+
+            if (response.ok) {
+              document.getElementById('presentForm').reset()
+              loadPresentes()
+            }
+          } catch (error) {
+            console.error('Erro ao adicionar presente:', error)
+          }
+        })
+
+      // Atualizar presente
+      async function togglePresente(id) {
+        try {
+          const presentes = await fetch(`${API_BASE}/presentes`).then((r) =>
+            r.json()
+          )
+          const presente = presentes.find((p) => p.id === id)
+
+          await fetch(`${API_BASE}/presentes/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              ...presente,
+              concluido: !presente.concluido,
+            }),
+          })
+
+          loadPresentes()
+        } catch (error) {
+          console.error('Erro ao atualizar presente:', error)
+        }
+      }
+
+      // Deletar presente
+      async function deletePresente(id) {
+        if (confirm('Tem certeza que deseja deletar este presente?')) {
+          try {
+            await fetch(`${API_BASE}/presentes/${id}`, { method: 'DELETE' })
+            loadPresentes()
+          } catch (error) {
+            console.error('Erro ao deletar presente:', error)
+          }
+        }
+      }
+
+      // Atualizar estatísticas
+      async function updateStatistics() {
+        try {
+          const response = await fetch(`${API_BASE}/estatisticas`)
+          const stats = await response.json()
+
+          document.getElementById('total').textContent = stats.total
+          document.getElementById('concluidos').textContent = stats.concluidos
+          document.getElementById('pendentes').textContent = stats.pendentes
+        } catch (error) {
+          console.error('Erro ao carregar estatísticas:', error)
+        }
+      }
+
+      // Carregar presentes ao iniciar
+      loadPresentes()
+    </script>
+  </body>
+</html>
