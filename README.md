@@ -78,3 +78,8 @@ python app.py
 - Flask 2.3.3
 - SQLite + SQLAlchemy
 - HTML5, CSS3, JavaScript
+
+## 👥 Equipe
+
+- Murilo Pantoja Carneiro
+- Vithor dos Santos
