@@ -12,14 +12,35 @@ Aplicativo web para gerenciar lista de presentes de Natal, desenvolvido em Pytho
 
 ## 🐳 Como Executar com Docker
 
+### Opção 1: Se já possui a imagem Docker localmente
+
 ```bash
-# Carregar a imagem
-docker load -i natal-app-v1.0.tar
+# Verificar se a imagem existe
+docker images | grep natal-app
 
 # Executar
 docker run -d -p 5000:5000 --name natal-app natal-app:v1.0
 
 # Acessar em http://localhost:5000
+```
+
+### Opção 2: Build da imagem a partir do Dockerfile
+
+```bash
+# Fazer build
+docker build -t natal-app:v1.0 .
+
+# Executar
+docker run -d -p 5000:5000 --name natal-app natal-app:v1.0
+
+# Acessar em http://localhost:5000
+```
+
+### Parar o container
+
+```bash
+docker stop natal-app
+docker rm natal-app
 ```
 
 ## 🚀 Como Executar Localmente
